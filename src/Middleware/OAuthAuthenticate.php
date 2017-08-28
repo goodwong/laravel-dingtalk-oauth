@@ -5,7 +5,7 @@ namespace Goodwong\LaravelDingtalkOAuth\Middleware;
 use Log;
 use Closure;
 use Illuminate\Http\Request;
-use Goodwong\LaravelDingtalk\Handlers\CreateDingtalkUserHandler;
+use Goodwong\LaravelDingtalk\Handlers\DingtalkHandler;
 use Goodwong\LaravelDingtalk\Events\DingtalkUserAuthorized;
 use Goodwong\LaravelDingtalk\Services\DingtalkService;
 use Goodwong\LaravelDingtalk\Repositories\DingtalkUserRepository;
@@ -15,17 +15,17 @@ class OAuthAuthenticate
     /**
      * construct
      * 
-     * @param  CreateDingtalkUserHandler  $createDingtalkUserHandler
+     * @param  DingtalkHandler  $dingtalkHandler
      * @param  DingtalkUserRepository  $dingtalkUserRepository
      * @param  DingtalkService  $service
      * @return void
      */
     public function __construct(
-        CreateDingtalkUserHandler $createDingtalkUserHandler,
+        DingtalkHandler $dingtalkHandler,
         DingtalkUserRepository $dingtalkUserRepository,
         DingtalkService $dingtalkService
     ) {
-        $this->createDingtalkUserHandler = $createDingtalkUserHandler;
+        $this->dingtalkHandler = $dingtalkHandler;
         $this->dingtalkUserRepository = $dingtalkUserRepository;
         $this->dingtalkService = $dingtalkService;
     }
@@ -72,7 +72,7 @@ class OAuthAuthenticate
             return $query->where('userid', $profile->userid);
         })->first();
         if (!$dingtalkUser) {
-            $dingtalkUser = $this->createDingtalkUserHandler->create((array)$profile);
+            $dingtalkUser = $this->dingtalkHandler->create((array)$profile);
         }
         event(new DingtalkUserAuthorized($dingtalkUser));
         session(['dingtalk.oauth_user' => $dingtalkUser]);
