@@ -1,14 +1,14 @@
 <?php
 
-namespace Goodwong\LaravelDingtalkOAuth\Middleware;
+namespace Goodwong\DingtalkOAuth\Middleware;
 
 use Log;
 use Closure;
 use Illuminate\Http\Request;
-use Goodwong\LaravelDingtalk\Handlers\DingtalkHandler;
-use Goodwong\LaravelDingtalk\Events\DingtalkUserAuthorized;
-use Goodwong\LaravelDingtalk\Services\DingtalkService;
-use Goodwong\LaravelDingtalk\Repositories\DingtalkUserRepository;
+use Goodwong\Dingtalk\Handlers\DingtalkHandler;
+use Goodwong\Dingtalk\Events\DingtalkUserAuthorized;
+use Goodwong\Dingtalk\Services\DingtalkService;
+use Goodwong\Dingtalk\Repositories\DingtalkUserRepository;
 
 class OAuthAuthenticate
 {

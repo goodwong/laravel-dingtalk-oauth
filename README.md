@@ -19,7 +19,7 @@
 
         // ...
 
-        'dingtalk_oauth' => \Goodwong\LaravelDingtalkOAuth\Middleware\OAuthAuthenticate::class,
+        'dingtalk_oauth' => \Goodwong\DingtalkOAuth\Middleware\OAuthAuthenticate::class,
     ];
     ```
 
@@ -28,7 +28,7 @@
     // user auth
     Route::group([
         'middleware' => [
-            \Goodwong\LaravelDingtalkOAuth\Middleware\OAuthAuthenticate::class,
+            \Goodwong\DingtalkOAuth\Middleware\OAuthAuthenticate::class,
         ],
     ], function () {
         // ...
